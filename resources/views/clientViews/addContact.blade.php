@@ -54,7 +54,7 @@
 
         <div class="col-sm-10">
             <input type="text" class="form-control  input-sm"
-                   id="inputEmail3" placeholder="Должность" name="Post" />
+                   id="inputEmail3" placeholder="Должность" name="wpContactPost" />
         </div>
 
     </div>
