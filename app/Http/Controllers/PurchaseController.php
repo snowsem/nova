@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Bill;
+use App\Workplace;
 use App\Purchase;
 use App\PurchaseStatus;
 use App\Contact;
@@ -13,7 +14,15 @@ class PurchaseController extends Controller
         return view('purchase', ['purchase' => Purchase::with('contragent', 'purchase_status')->where('purchaseStatus', '!=', '0')->get()] );
     }
     public function add($id) {
-        return view('purchaseViews.addPurchase', ['id'=>$id, 'p_status' => PurchaseStatus::all(), 'contacts'=>Contact::where('IDContragent', '=', $id)->get()] );
+        return view('purchaseViews.addPurchase',
+            [
+                'id'=>$id,
+                'p_status' => PurchaseStatus::all(),
+                'contacts'=>Contact::whereIn('IDContact', Workplace::where('wpClientId', '=', $id)
+            ->select('wpContactId')
+            ->get())
+            ->get()
+          ] );
     }
     public function addPost($id, Request $request){
         $tel = new Purchase();
@@ -35,7 +44,14 @@ class PurchaseController extends Controller
     public function edit($id) {
         $b =Purchase::where('purchaseId','=', $id)->first();
         $c = $b->purchaseContragent;
-        return view('purchaseViews.editPurchase', ['id'=>$id,'purchase'=>$b, 'p_status' => PurchaseStatus::all(), 'contacts'=>Contact::where('IDContragent', '=', $c)->select('NameContact','SoNameContact','FamilyContact','IDContact','IDContragent')->get()] );
+        return view('purchaseViews.editPurchase', [
+            'id'=>$id,'purchase'=>$b,
+            'p_status' => PurchaseStatus::all(),
+            'contacts'=>Contact::whereIn('IDContact',  Workplace::where('wpClientId', '=', $c)
+                ->select('wpContactId')->get())
+                ->select('NameContact','SoNameContact','FamilyContact','IDContact')
+                ->get()
+        ] );
     }
     public function editPost($id, Request $request) {
         $tel = Purchase::where('purchaseId','=', $id)->update(
