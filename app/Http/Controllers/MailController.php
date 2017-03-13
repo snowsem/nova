@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ Request;
 use PhpImap;
 use PhpImap\IncomingMail;
 use PhpImap\IncomingMailAttachment;

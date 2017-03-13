@@ -11,7 +11,11 @@ use App\Http\Controllers\Controller;
 class PurchaseController extends Controller
 {
     public function index() {
-        return view('purchase', ['purchase' => Purchase::with('contragent', 'purchase_status')->where('purchaseStatus', '!=', '0')->get()] );
+        return view('purchase', [
+            'purchase' => Purchase::with('contragent', 'purchase_status')
+                ->where('purchaseStatus', '!=', '0')
+                ->get()
+        ] );
     }
     public function add($id) {
         return view('purchaseViews.addPurchase',
@@ -65,6 +69,7 @@ class PurchaseController extends Controller
                 'purchaseLink'=>$request->input('purchaseLink')
             )
         );
+
         if ($tel) {
             print 'success';
             //print $tel->id;
@@ -72,5 +77,4 @@ class PurchaseController extends Controller
             print 'error';
         }
     }
-    //
 }

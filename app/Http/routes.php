@@ -17,33 +17,19 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/', 'UserController@index');
     Route::post('/search', 'SearchController@search');
     Route::get('/admin/add_ticket','AdminController@addTicket');
-
     Route::get('ajax', 'UserController@ajax');
-
 
     //Client route
     Route::get('clients', 'ClientController@index');
-
     Route::get('clients/add', 'ClientController@addClient');
     Route::post('clients/add', 'ClientController@addClientPost');
-
-
-
-
-
     //Client route Card
     Route::get('client/{id}', 'ClientCardController@index');
-
-
-
-
     Route::get('client/{id}/add_telephone', 'ClientCardController@addTelephone');
     Route::post('client/{id}/add_telephone', 'ClientCardController@addTelephonePost');
     Route::get('remove_telephone/{id}', 'RemoveController@telephone');
     Route::get('edit_telephone/{id}', 'RemoveController@editTelephone');
     Route::post('edit_telephone/{id}', 'RemoveController@editTelephonePost');
-
-
 
     Route::get('client/{id}/add_email', 'ClientCardController@addEmail');
     Route::post('client/{id}/add_email', 'ClientCardController@addEmailPost');
@@ -67,6 +53,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('client/{id}/add_contact', 'ClientCardController@addContact');
     Route::post('client/{id}/add_contact', 'ClientCardController@addContactPost');
+    //связи
+    Route::get('client/{id}/add_relation', 'ClientCardController@addRelation');
+    Route::post('client/{id}/add_relation', 'ClientCardController@addRelationPost');
 
 
 
@@ -93,15 +82,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get('contact/{id}/add_email', 'ContactCardController@addEmail');
     Route::post('contact/{id}/add_email', 'ContactCardController@addEmailPost');
-
-
-
     Route::get('contact/{id}/add_link', 'ContactCardController@addLink');
     Route::post('contact/{id}/add_link', 'ContactCardController@addLinkPost');
 
     Route::get('contact/{id}/edit_name', 'ContactCardController@editName');
     Route::post('contact/{id}/edit_name', 'ContactCardController@editNamePost');
-
     Route::get('contact/{id}/edit_info', 'ContactCardController@editInfo');
     Route::post('contact/{id}/edit_info', 'ContactCardController@editInfoPost');
 
@@ -109,9 +94,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('contact/{id}/add_workplace', 'ContactCardController@addWorkplacePost');
     Route::get('contact/{id}/edit_workplace', 'ContactCardController@editWorkplace');
     Route::post('contact/{id}/edit_workplace', 'ContactCardController@editWorkplacePost');
-
     Route::post('ajax/select_client/{name?}', 'ContactCardController@ajaxGetClient');
     Route::post('ajax/select_wp/{name?}', 'ContactCardController@ajaxGetWP');
+    Route::post('ajax/select_relation/{name?}', 'ClientCardController@ajaxGetRelation');
 
 
     //Bill
@@ -127,20 +112,16 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('purchase', 'PurchaseController@index');
     Route::get('purchase/add/{id}', 'PurchaseController@add');
     Route::post('purchase/add/{id}', 'PurchaseController@addPost');
-
     Route::get('purchase/edit/{id}', 'PurchaseController@edit');
     Route::post('purchase/edit/{id}', 'PurchaseController@editPost');
 
     //Call
     Route::get('calls', 'CallController@index');
-
     Route::get('call/add/{param}/{id}', 'CallController@add');
     Route::post('call/add/{param}/{id}', 'CallController@addPost');
-
     Route::get('call/edit/{param}/{id}/{cid}', 'CallController@edit');
     Route::post('call/edit/{param}/{id}', 'CallController@editPost');
    // Route::post('purchase/edit/{id}', 'PurchaseController@editPost');
-
 
     //File Controller
     Route::get('file/add/{param}/{id}', 'FileController@add');
@@ -151,17 +132,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('mail', 'MailController@index');
     Route::get('mail/get/{id}/', 'MailController@readMessage');
     Route::get('mail/renderMessage/{id}/', 'MailController@renderMessage');
-
-
-
-
-
-
-
-
-
-
-
 
 });
 

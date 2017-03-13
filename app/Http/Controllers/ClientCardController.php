@@ -3,10 +3,12 @@ namespace App\Http\Controllers;
 use App\Address;
 use App\ClientCat;
 use App\ClientProp;
+use App\ClientRelation;
 use App\ClientSubCat;
 use App\Contact;
 use App\Email;
 use App\Call;
+use App\RelationType;
 use App\Telephone;
 use App\Workplace;
 use Illuminate\Support\Facades\File;
@@ -198,5 +200,41 @@ class ClientCardController extends Controller
             print 'error';
         }
     }
-    //
+    public function addRelation($id){
+        $relation_type = RelationType::all();
+        return view('clientViews.addRelation',['id'=>$id, 'relation_type'=>$relation_type]);
+    }
+    public function addRelationPost($id, Request $request){
+        $relation =  $request->input('RelationType');
+        $tel = new ClientRelation;
+        $parent = '';
+        if ($relation == 1) {
+            //Parent
+            $parent = $request->input('wpClientId');
+        } elseif ($relation == 2) {
+            //Child
+            $parent = $id;
+        } else {
+            $parent = NULL;
+        }
+
+
+        $tel->client_id = $id;
+        $tel->client_parent = $parent;
+        $tel->relation_type = $relation;
+        $tel->client_follow_id = $request->input('wpClientId');
+
+        if ($tel->save()) {
+            print 'success';
+        } else {
+            print 'error';
+        }
+    }
+
+    public function ajaxGetRelation(Request $request) {
+        $q= $request->input('q');
+        $a = Client::where('ClientName', 'LIKE', '%'.$q.'%')->get();
+        return $a->toJson();
+    }
+        //
 }

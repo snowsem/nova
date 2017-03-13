@@ -186,6 +186,13 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="separator"></div>
+            <div class="row">
+                <div class="col-md-3">Связи:  <span class="plus-mid" value="/client/{{$client->ClientId}}/add_relation" title="Добавить связь"></span></div>
+                <div class="col-md-9">
+                </div>
+            </div>
             <div class="separator"></div>
             <h4>Адреса
 
@@ -196,7 +203,7 @@
 
                 <div class="row">
                     <div class="col-md-6">{{$t->comment_address}}</div>
-                    <div class="col-md-6"><p><span class="edit" value="/client/{{$t->id_address }}/edit_address" title="Редактировать название"></span>{{$t->index_address }}, {{$t->sub_address}}, {{$t->city_address}}, {{$t->street_address}}, {{$t->home_address}}, {{$t->korp_address}}, {{$t->kv_address}} </p></div>
+                    <div class="col-md-6"><p><span class="edit" value="/client/{{$t->id_address }}/edit_address" title="Редактировать название"></span>@if ($t->index_address){{$t->index_address }}@endif @if ($t->sub_address),{{$t->sub_address}} @endif @if ($t->city_address), {{$t->city_address}}@endif @if($t->street_address) ,{{$t->street_address}} @endif @if($t->home_address) ,{{$t->home_address}}@endif @if ($t->korp_address) ,{{$t->korp_address}} @endif @if ($t->kv_address),{{$t->kv_address}} @endif </p></div>
                 </div>
 
 
@@ -208,7 +215,7 @@
 
             @endforeach
 
-
+<!--
 
             <div class="row">
                 <div class="col-md-6">Индекс:</div>
@@ -225,7 +232,7 @@
 
             <div class="separator"></div>
 
-
+!-->
 
         </div>
 
@@ -311,6 +318,7 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div role="tabpanel" class="tab-pane" id="settings">
                         <button class="btn btn-default btn-sm" type="submit" id="addTrigger" value="/file/add/client/{{$client->ClientId}}" title="Добавить файл" aria-label="">Добавить </button>
                         <div class="margin-10px-top"></div>
@@ -382,4 +390,8 @@
 <link rel="stylesheet" href="/js/select/dist/css/bootstrap-select.css">
 <script src="/js/select/dist/js/bootstrap-select.js"></script>
 <script src="/js/jquery.maskedinput.js"></script>
+
+<link rel="stylesheet" href="/js/as/css/ajax-bootstrap-select.css"/>
+<script type="text/javascript" src="/js/as/js/ajax-bootstrap-select.js"></script>
 </body></html>
+
